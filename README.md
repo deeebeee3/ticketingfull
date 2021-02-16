@@ -18,3 +18,5 @@ deployment is going to create one pod (replicas: 1), with an instance of the ima
 service will give access to the pod
 
 ---
+
+skaffold dev (ctrl c and run again if get an error)
