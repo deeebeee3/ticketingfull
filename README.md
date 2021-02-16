@@ -49,3 +49,9 @@ To test navigate to ticketing.dev/api/users/currentuser in browser..
 type: thisisunsafe (to get past unsecure connection error)
 
 ---
+
+cd auth
+
+npm install express-validator
+
+---
