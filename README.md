@@ -20,3 +20,16 @@ service will give access to the pod
 ---
 
 skaffold dev (ctrl c and run again if get an error)
+
+---
+
+Install Ingress-nginx if you restarted / reset your cluster
+
+https://kubernetes.github.io/ingress-nginx/deploy/#docker-for-mac
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.44.0/deploy/static/provider/cloud/deploy.yaml
+
+add ingress-srv.yaml to forward requests to ticketing.dev/api/users/\*\* to
+our auth-srv service - send it to the service on the port 3000.
+
+---
