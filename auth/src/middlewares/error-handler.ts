@@ -8,9 +8,9 @@ export const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log("something when wrong");
+  console.log(err.message);
 
   res.status(400).send({
-    message: "Something went wrong",
+    message: err.message,
   });
 };
