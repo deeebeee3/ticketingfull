@@ -33,3 +33,19 @@ add ingress-srv.yaml to forward requests to ticketing.dev/api/users/\*\* to
 our auth-srv service - send it to the service on the port 3000.
 
 ---
+
+Hosts file / security warning:
+
+code /etc/hosts
+
+In hosts file add:
+
+# Added by Deepak - Microservices Dev Stuff
+
+127.0.0.1 ticketing.dev
+
+To test navigate to ticketing.dev/api/users/currentuser in browser..
+
+type: thisisunsafe (to get past unsecure connection error)
+
+---
