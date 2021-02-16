@@ -55,3 +55,7 @@ cd auth
 npm install express-validator
 
 ---
+
+kubectl get pods
+
+---
