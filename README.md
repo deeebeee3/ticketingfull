@@ -40,8 +40,7 @@ code /etc/hosts
 
 In hosts file add:
 
-# Added by Deepak - Microservices Dev Stuff
-
+\# Added by Deepak - Microservices Dev Stuff
 127.0.0.1 ticketing.dev
 
 To test navigate to ticketing.dev/api/users/currentuser in browser..
