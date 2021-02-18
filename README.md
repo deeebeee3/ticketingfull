@@ -68,3 +68,33 @@ ts-node-dev alone runs ok locally, but when running it inside of a Pod by means 
 Long story short: use nodemon + ts-node instead of ts-node-dev
 
 ---
+
+Authentication Session / JWT stuff
+
+1.) Make sure any requests are https otherwise cookies won't be used...
+
+app.use(cookieSession({
+signed: false, //don't encrypt cookie contents
+secure: true, // cookies only used if using https
+})
+);
+
+2.) Check contents of encoding cookie by copying the value and going to
+
+https://www.base64decode.org/
+
+Paste cookie contents in there - hit decode - and we will see our decoded session but encoded JWT contents...
+
+INPUT:
+eyJqd3QiOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKcFpDSTZJall3TW1VNE9UVm1OVFkxWkdFNU1EQTJZbVJtTmpGalpTSXNJbVZ0WVdsc0lqb2lkR1Z6WkhSbFFHNXJiaTVqYjIwaUxDSnBZWFFpT2pFMk1UTTJOakkxTlRsOS5fRVNlUUpRRklBeEFxLTN5UjFMQUJtOFBqM0dOd09uSDhSeUk5RHhZODg0In0%3D
+
+OUTPUT:
+{"jwt":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMmU4OTVmNTY1ZGE5MDA2YmRmNjFjZSIsImVtYWlsIjoidGVzZHRlQG5rbi5jb20iLCJpYXQiOjE2MTM2NjI1NTl9.\_ESeQJQFIAxAq-3yR1LABm8Pj3GNwOnH8RyI9DxY884"}7
+
+https://jwt.io/
+
+Remember in this example we set a signing key of 'asdf'
+
+We shouldn't store the signing key as plain text as we have done so far...
+
+---
