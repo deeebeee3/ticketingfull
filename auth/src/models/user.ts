@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Password } from "../utils/password";
 
 /* An interface that describes the properties
 that are required to create a new User */
@@ -29,6 +30,21 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+});
+
+//this will always run before saving a Document or db
+//**don't use arrow function for callback, otherwise value of 'this' will be
+//overidden to be context of this file instead of our User Document...
+userSchema.pre("save", async function (done) {
+  if (this.isModified("password")) {
+    //get the users password from the Document and hash it
+    const hashed = await Password.toHash(this.get("password"));
+
+    //update the Document password to the hashed one
+    this.set("password", hashed);
+  }
+  //for mongoose have to manually call done after all async work is done
+  done();
 });
 
 //add custom function to User model by using statics property of schema
