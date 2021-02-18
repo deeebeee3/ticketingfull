@@ -41,7 +41,9 @@ router.post(
         id: user.id,
         email: user.email,
       },
-      "asdf"
+      //! means hey ts, don't worry we already did this check earlier in index.ts
+      //we don't need to do it again here...
+      process.env.JWT_KEY!
     );
 
     //Store it on the session object
