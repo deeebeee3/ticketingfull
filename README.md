@@ -98,3 +98,36 @@ Remember in this example we set a signing key of 'asdf'
 We shouldn't store the signing key as plain text as we have done so far...
 
 ---
+
+How to create an all purpose secret inside a Kubernetes Cluster:
+
+kubectl create secret generic jwt-secret --from-literal=JWT_KEY=asdf
+
+kubectl get secrets
+
+---
+
+Take the secret and set it on the environmental variables inside ours pods...
+(for example in the Auth Service - auth.depl.yaml):
+
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+
+---
+
+DEBUGGING PODS:
+
+If you try to reference a secret that doesn't exist, inside a pod, kubernetes
+will not start up that pod... Use the following to debug...
+
+kubectl get pods (will list pods and their statuses)
+
+Do a describe on a pod that has an error status to find out info why it didnt start...
+
+kubectl describe pod auth-depl-589c5bbc9c-77cmk
+
+---
