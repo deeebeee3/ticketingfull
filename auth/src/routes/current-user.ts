@@ -1,5 +1,5 @@
 import express from "express";
-import jwt, { verify } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
