@@ -58,3 +58,13 @@ npm install express-validator
 kubectl get pods
 
 ---
+
+Fix skaffold + ts-node-dev issue (not rebuilding properly)
+
+For those having issues with the automatic reload of ts-node-dev, the issue seems to be related to the composite of both tools.
+
+ts-node-dev alone runs ok locally, but when running it inside of a Pod by means of skaffold, it syncs the new changed file properly into the Pod but the job itself inside of the Pod doesn't seem to reload.
+
+Long story short: use nodemon + ts-node instead of ts-node-dev
+
+---
