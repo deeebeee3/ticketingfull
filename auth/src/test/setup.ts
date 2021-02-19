@@ -1,6 +1,16 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import { app } from "../app";
+import request from "supertest";
+
+//tell ts there is some global property called signin
+declare global {
+  namespace NodeJS {
+    interface Global {
+      signUp(): Promise<string[]>;
+    }
+  }
+}
 
 let mongo: any;
 
@@ -36,3 +46,21 @@ afterAll(async () => {
   await mongo.stop();
   await mongoose.connection.close();
 });
+
+//add a globally scoped function we can use in tests
+global.signUp = async () => {
+  const email = "test@test.com";
+  const password = "password";
+
+  const response = await request(app)
+    .post("/api/users/signup")
+    .send({
+      email,
+      password,
+    })
+    .expect(201);
+
+  const cookie = response.get("Set-Cookie");
+
+  return cookie;
+};
