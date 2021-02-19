@@ -147,3 +147,11 @@ RUN npm install --only=prod
 preset": "ts-jest" - adds in ts support for jest...
 
 supertest lib will allow us to fake a request to the express application.
+
+Whenever jest runs our tests at the terminal its going to set NODE_ENV to 'test'...
+For cookie-session We want secure to be FALSE, when not in prod environment
+because supertest uses http by default rather than https...
+
+secure: process.env.NODE_ENV !== "test"
+
+---
