@@ -139,3 +139,9 @@ In Dockerfile add --only=prod flag to RUN command... - so it will only install p
 RUN npm install --only=prod
 
 ---
+
+## Testing
+
+--no-cache flag will stop jest getting confused everytime we try to change a ts file
+
+preset": "ts-jest" - adds in ts support for jest
