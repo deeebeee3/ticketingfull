@@ -131,3 +131,11 @@ Do a describe on a pod that has an error status to find out info why it didnt st
 kubectl describe pod auth-depl-589c5bbc9c-77cmk
 
 ---
+
+Use --save-dev flag, so we don't download these test dependencies everytime we build our image... we don't want to keep downloading and installing mongo-memory-server (80mb)... We're not going to be running tests inside the image - thats why we installed them as dev dependencies...
+
+In Dockerfile add --only=prod flag to RUN command... - so it will only install prod dependencies
+
+RUN npm install --only=prod
+
+---
