@@ -144,4 +144,6 @@ RUN npm install --only=prod
 
 --no-cache flag will stop jest getting confused everytime we try to change a ts file
 
-preset": "ts-jest" - adds in ts support for jest
+preset": "ts-jest" - adds in ts support for jest...
+
+supertest lib will allow us to fake a request to the express application.

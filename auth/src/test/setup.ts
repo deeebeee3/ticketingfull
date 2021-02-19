@@ -6,6 +6,10 @@ let mongo: any;
 
 //run beforeAll Hook before all tests
 beforeAll(async () => {
+  //tests will fail unless we manually add this key here - because remember
+  //JWT_KEY is only available inside our pod
+  process.env.JWT_KEY = "wonfownffwefw";
+
   mongo = new MongoMemoryServer();
   const mongoUri = await mongo.getUri();
 
