@@ -159,3 +159,60 @@ because supertest uses http by default rather than https...
 secure: process.env.NODE_ENV !== "test"
 
 ---
+
+# SSR Next.js
+
+We not going to use TS for next.js client app - brings minimal benefit
+for lots of extra effort. But all other services will use TS...
+
+-
+
+To run the next.js app locally - inside client folder:
+
+npm run dev
+
+go to: localhost:3000/ - should see landing page...
+
+-
+
+Build the docker image for the Client App
+(only if you want to make sure it builds correctly first and want to push to Docker hub too...):
+
+docker build -t deepakbhari/client .
+
+dot (.) means current directory as the context for the build...
+
+Successfully built ffabfb7d0944
+Successfully tagged deepakbhari/client:latest
+
+push image up to docker hub:
+
+docker push deepakbhari/client
+
+-
+
+Now lets, get our client app running inside our kubernetes cluster...
+
+1. create a deplyment config file in k8s dir...
+
+2. add some config to skaffold.yaml
+
+3. set up some routing rules inside ingress-srv.yaml
+
+Path order is important - most specific ones at top, and least specific / catch all - at bottom:
+
+        paths:
+          - path: /api/users/?(.*)
+            backend:
+              serviceName: auth-srv
+              servicePort: 3000
+          - path: /?(.*)
+            backend:
+              serviceName: client-srv
+              servicePort: 3000
+
+Now should see Landing page here after running skaffold dev:
+
+https://ticketing.dev/
+
+---
