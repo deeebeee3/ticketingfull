@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "63af2d65-8647-47c4-9b9e-ca33ed116231",
+		"name": "TicketingApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ticketing.dev/api/users/signup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@test.com\",\n    \"password\": \"password\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ticketing.dev/api/users/signup",
+					"protocol": "https",
+					"host": [
+						"ticketing",
+						"dev"
+					],
+					"path": [
+						"api",
+						"users",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ticketing.dev/api/users/signin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@test.com\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ticketing.dev/api/users/signin",
+					"protocol": "https",
+					"host": [
+						"ticketing",
+						"dev"
+					],
+					"path": [
+						"api",
+						"users",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://ticketing.dev/api/users/currentuser",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://ticketing.dev/api/users/currentuser",
+					"protocol": "https",
+					"host": [
+						"ticketing",
+						"dev"
+					],
+					"path": [
+						"api",
+						"users",
+						"currentuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://ticketing.dev/api/users/signout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://ticketing.dev/api/users/signout",
+					"protocol": "https",
+					"host": [
+						"ticketing",
+						"dev"
+					],
+					"path": [
+						"api",
+						"users",
+						"signout"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
