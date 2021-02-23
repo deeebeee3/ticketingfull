@@ -215,4 +215,21 @@ Now should see Landing page here after running skaffold dev:
 
 https://ticketing.dev/
 
+-
+
+After adding / making change to next.config.js - we need to manually restart our client pod...
+To do this - we need to manually delete the client pod - and then that pod will be recreated...
+
+kubectl get pods
+
+> client-depl-559b6d6576-ptsmz
+
+kubectl delete pod client-depl-559b6d6576-ptsmz
+
+kubectl get pods
+
+> client-depl-559b6d6576-x5zgb
+
+:-)
+
 ---
