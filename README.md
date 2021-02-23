@@ -105,6 +105,10 @@ kubectl create secret generic jwt-secret --from-literal=JWT_KEY=asdf
 
 kubectl get secrets
 
+kubectl describe secret jwt-secret
+
+kubectl delete secret jwt-secret
+
 ---
 
 Take the secret and set it on the environmental variables inside ours pods...
