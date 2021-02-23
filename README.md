@@ -232,4 +232,13 @@ kubectl get pods
 
 :-)
 
+-
+
+Create our own custom App wrapper component (that wraps our pages) to replace next.js
+default one that happens behind the scenes...
+
+{ Component, pageProps }
+
+We can only import global css in this \_app file...
+
 ---
