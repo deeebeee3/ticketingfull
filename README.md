@@ -274,12 +274,12 @@ kubectl get services (will get services inside "default" namespace)
 
 Get the services running INSIDE a particular namespace
 
-kubectil get services -n ingress-nginx
+kubectl get services -n ingress-nginx
 (lists services running inside ingress-nginx namespace)
 
 Example:
 
-"http://ingress-nginx.ingress-nginx.svc.cluster.local"
+"http://ingress-nginx-controller.ingress-nginx.svc.cluster.local"
 
 Thats how we reach from our client inside the default namespace across to
 the ingress-nginx namespace and access the service inside of there...
@@ -287,7 +287,7 @@ the ingress-nginx namespace and access the service inside of there...
 So for the request from the server side script inside our next.js app
 will look like:
 
-"http://ingress-nginx.ingress-nginx.svc.cluster.local/api/users/currentuser"
+"http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser"
 
 Just need to make sure we pass along cookie as well :-)
 
@@ -298,7 +298,7 @@ http://short-form-url/api/users/currentuser
 
 maps to
 
-http://ingress-nginx.ingress-nginx.svc.cluster.local/api/users/currentuser
+http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser
 
 But we'll leave this for now...
 
