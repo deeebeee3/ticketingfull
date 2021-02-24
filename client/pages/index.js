@@ -1,9 +1,7 @@
 import buildClient from "../api/build-client";
 
 const LandingPage = ({ currentUser }) => {
-  console.log(currentUser);
-
-  return <h1>Landing Page</h1>;
+  return currentUser ? <h1>You are signed in</h1> : <h1>You are signed out</h1>;
 };
 
 // This is server-side logic (is run on the server if hard refresh in browser,
