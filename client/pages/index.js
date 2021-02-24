@@ -2,6 +2,7 @@ import axios from "axios";
 
 const LandingPage = ({ currentUser }) => {
   console.log(currentUser);
+
   return <h1>Landing Page</h1>;
 };
 
@@ -14,17 +15,30 @@ LandingPage.getInitialProps = async () => {
       requests should be made like: 
       http://ingress-nginx.ingress-nginx.svc.cluster.local/api/users/currentuser 
     */
+
+    const { data } = await axios.get(
+      "http://ingress-nginx.ingress-nginx.svc.cluster.local/api/users/currentuser" <
+        {
+          //need this so ingress-nginx knows which domain we are accessing routing rules for
+          //see line 10 in ingress-srv.yaml
+          headers: {
+            Host: "ticketing.dev",
+          },
+        }
+    );
+
+    return data;
   } else {
     /*     
       we are on the browser (browser will figure out domain)
       requests should be made like: 
       /api/users/currentuser 
     */
+
+    const { data } = await axios.get("/api/users/currentuser");
+
+    return data;
   }
-
-  const response = await axios.get("/api/users/currentuser");
-
-  return response.data;
 };
 
 export default LandingPage;
