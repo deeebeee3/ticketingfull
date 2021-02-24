@@ -242,3 +242,64 @@ default one that happens behind the scenes...
 We can only import global css in this \_app file...
 
 ---
+
+##NAMESPACES...
+
+kubectl get namespace
+
+"default" is the name of the namespace that we are currently creating our
+services in...
+
+NAME STATUS AGE
+default Active 3h13m
+ingress-nginx Active 15m
+kube-node-lease Active 3h14m
+kube-public Active 3h14m
+kube-system Active 3h14m
+
+We can access services using that "http://auth-srv" style ONLY when
+they are in the same namespace...
+
+Auth and Client services are running in the same namespace
+
+BUT Ingress Nginx is in it's own seperate namespace...
+
+So to do CROSS-NAMESPACE Communication our domain will look like:
+
+"http://NAME_OF_SERVICE.NAMESPACE.svc.cluster.local"
+
+kubectl get namespace
+
+kubectl get services (will get services inside "default" namespace)
+
+Get the services running INSIDE a particular namespace
+
+kubectil get services -n ingress-nginx
+(lists services running inside ingress-nginx namespace)
+
+Example:
+
+"http://ingress-nginx.ingress-nginx.svc.cluster.local"
+
+Thats how we reach from our client inside the default namespace across to
+the ingress-nginx namespace and access the service inside of there...
+
+So for the request from the server side script inside our next.js app
+will look like:
+
+"http://ingress-nginx.ingress-nginx.svc.cluster.local/api/users/currentuser"
+
+Just need to make sure we pass along cookie as well :-)
+
+\*\*Can create an External Name Service in the future to do domain mapping...
+so:
+
+http://short-form-url/api/users/currentuser
+
+maps to
+
+http://ingress-nginx.ingress-nginx.svc.cluster.local/api/users/currentuser
+
+But we'll leave this for now...
+
+---
