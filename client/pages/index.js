@@ -9,7 +9,7 @@ const LandingPage = ({ currentUser }) => {
 // This is server-side logic (is run on the server if hard refresh in browser,
 // or navigating to app from external link) - but there is one time it gets run
 // on the browser - when navigating between pages inside of our app
-LandingPage.getInitialProps = async () => {
+LandingPage.getInitialProps = async ({ req, res }) => {
   if (typeof window === "undefined") {
     // we are on the server!
     // requests should be made to
@@ -17,9 +17,7 @@ LandingPage.getInitialProps = async () => {
     const { data } = await axios.get(
       "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser",
       {
-        headers: {
-          Host: "ticketing.dev",
-        },
+        headers: req.headers, //just pass through all the headers from incoming request (host, cookie etc...)
       }
     );
 
