@@ -1,4 +1,4 @@
-import axios from "axios";
+import buildClient from "../api/build-client";
 
 const LandingPage = ({ currentUser }) => {
   console.log(currentUser);
@@ -9,28 +9,10 @@ const LandingPage = ({ currentUser }) => {
 // This is server-side logic (is run on the server if hard refresh in browser,
 // or navigating to app from external link) - but there is one time it gets run
 // on the browser - when navigating between pages inside of our app
-LandingPage.getInitialProps = async ({ req, res }) => {
-  if (typeof window === "undefined") {
-    // we are on the server!
-    // requests should be made to
-    // http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser
-    const { data } = await axios.get(
-      "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser",
-      {
-        headers: req.headers, //just pass through all the headers from incoming request (host, cookie etc...)
-      }
-    );
+LandingPage.getInitialProps = async (context) => {
+  const { data } = await buildClient(context).get("/api/users/currentuser");
 
-    return data;
-  } else {
-    // we are on the browser!
-    // requests can be made with a base url of '' like:
-    // /api/users/currentuser
-    const { data } = await axios.get("/api/users/currentuser");
-
-    return data;
-  }
-  return {};
+  return data;
 };
 
 export default LandingPage;
