@@ -317,6 +317,34 @@ Auth Sign Up Header - two possible scenarios:
 
 # NPM - create package for shared code between services
 
+in root mkdir common
+
+cd common - npm init -y
+
+---
+
 organisation / package name:
 
 "name": "@ddbtickets/common"
+
+cd ticketingfull - add and commit changes
+
+cd common - npm publish --access public
+
+...will publish package
+
+we will write typescript but publish javascript...
+
+tsc --init
+npm install typescript del-cli --save-dev
+
+---
+
+before building, delete old build folder:
+
+    "clean": "del ./build/*",
+    "build": "npm run clean && tsc"
+
+deepakbhari@MacBook-Pro-2 common % npm run build
+
+---
