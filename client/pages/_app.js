@@ -10,13 +10,21 @@ const AppComponent = ({ Component, pageProps }) => {
   );
 };
 
-//Only in custom App component context is a nested object
+// ONLY in _app.js, context (ctx) is a nested object inside another object...
+// We need to call this component any name other than App... (next.js ideosyncracies...)
 AppComponent.getInitialProps = async (appContext) => {
-  //console.log(Object.keys(appContext));
   const client = buildClient(appContext.ctx);
   const { data } = await client.get("/api/users/currentuser");
 
-  console.log(data);
+  //if a page component has a getInitialProps function - then invoke it here...
+  let pageProps = {};
+  if (appContext.Component.getInitialProps) {
+    //the ctx property is intended to go into a individual page
+    //appContext is intended to go into app component
+    pageProps = await appContext.Component.getInitialProps(appContext.ctx);
+  }
+
+  console.log(pageProps);
 
   return data;
 };
