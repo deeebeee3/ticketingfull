@@ -348,3 +348,29 @@ before building, delete old build folder:
 deepakbhari@MacBook-Pro-2 common % npm run build
 
 ---
+
+To publish...
+
+Make changes to code in src folder
+
+update package version:
+
+deepakbhari@MacBook-Pro-2 common % npm version patch
+
+or
+
+manually increment in package.json
+
+then
+
+npm run build
+
+---
+
+Use this command ONLY during development to make our lives easier:
+
+    "pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish"
+
+npm run pub
+
+---
