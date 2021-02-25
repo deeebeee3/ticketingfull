@@ -23,7 +23,7 @@ skaffold dev (ctrl c and run again if get an error)
 
 ---
 
-Install Ingress-nginx if you restarted / reset your cluster
+## Install Ingress-nginx if you restarted / reset your cluster
 
 https://kubernetes.github.io/ingress-nginx/deploy/#docker-for-mac
 
@@ -99,7 +99,7 @@ We shouldn't store the signing key as plain text as we have done so far...
 
 ---
 
-How to create an all purpose secret inside a Kubernetes Cluster:
+## Create an all purpose secret inside a Kubernetes Cluster:
 
 kubectl create secret generic jwt-secret --from-literal=JWT_KEY=asdf
 
@@ -144,7 +144,7 @@ RUN npm install --only=prod
 
 ---
 
-## Testing
+# Testing
 
 --no-cache flag will stop jest getting confused everytime we try to change a ts file
 
@@ -301,5 +301,16 @@ maps to
 http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser
 
 But we'll leave this for now...
+
+---
+
+Auth Sign Up Header - two possible scenarios:
+
+[false, false, { label: "Sign Out", href: "/auth/signout" }]
+
+[{ label: "Sign Up", href: "/auth/signup" }, { label: "Sign In", href: "/auth/signin" }, false]
+
+.filter(linkConfig => linkConfig) will only return the indices that are not false...
+.map() then we will map over the truthy ones to and return a link...
 
 ---
