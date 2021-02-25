@@ -4,7 +4,7 @@ exports.errorHandler = void 0;
 var custom_error_1 = require("../errors/custom-error");
 /* only requirement for error handling middleware is that
 it recieves the following 4 arguments */
-exports.errorHandler = function (err, req, res, next) {
+var errorHandler = function (err, req, res, next) {
     if (err instanceof custom_error_1.CustomError) {
         return res.status(err.statusCode).send({
             errors: err.serializeErrors(),
@@ -18,3 +18,4 @@ exports.errorHandler = function (err, req, res, next) {
         ],
     });
 };
+exports.errorHandler = errorHandler;
