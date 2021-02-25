@@ -314,3 +314,9 @@ Auth Sign Up Header - two possible scenarios:
 .map() then we will map over the truthy ones to and return a link...
 
 ---
+
+# NPM - create package for shared code between services
+
+organisation / package name:
+
+"name": "@ddbtickets/common"
