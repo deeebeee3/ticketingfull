@@ -18,6 +18,11 @@ router.put(
     if (!ticket) {
       throw new NotFoundError();
     }
+
+    if (ticket.userId !== req.currentUser!.id) {
+      throw new NotAuthorizedError();
+    }
+
     res.send(ticket);
   }
 );
