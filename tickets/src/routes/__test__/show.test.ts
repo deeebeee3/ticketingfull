@@ -4,8 +4,6 @@ import { Ticket } from "../../models/ticket";
 
 it("returns a 404 if the ticket is not found", async () => {
   const response = await request(app).get("/api/tickets/67868fb").send();
-
-  console.log(response.body);
 });
 
 it("it returns the ticket if the ticket is found", async () => {

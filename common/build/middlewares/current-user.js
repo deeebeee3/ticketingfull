@@ -8,7 +8,7 @@ var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var currentUser = function (req, res, next) {
     var _a;
     if (!((_a = req.session) === null || _a === void 0 ? void 0 : _a.jwt)) {
-        //if jwt not defined rmove onto next middleware in our chain
+        //if jwt not defined move onto next middleware in our chain
         return next();
     }
     //decode / extract data out of jwt using verify()
