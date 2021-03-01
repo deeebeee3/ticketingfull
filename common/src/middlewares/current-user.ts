@@ -23,7 +23,7 @@ export const currentUser = (
   next: NextFunction
 ) => {
   if (!req.session?.jwt) {
-    //if jwt not defined rmove onto next middleware in our chain
+    //if jwt not defined move onto next middleware in our chain
     return next();
   }
 
