@@ -403,3 +403,10 @@ nats-depl-7ddff778f9-kwh24 1/1 Running 0 2m
 https://www.npmjs.com/package/node-nats-streaming
 
 callback based...
+
+Start creating standalone NATS streaming sub project - to find out how internals work...
+
+tsc --init
+npm install -g typescript
+
+The ts-node-dev library recently released a change that disables this restart behavior by default. To enable it, add --rs to scripts in package.json
