@@ -374,3 +374,32 @@ Use this command ONLY during development to make our lives easier:
 npm run pub
 
 ---
+
+# NATS STREAMING SERVER
+
+Always read docs for NATS Streaming Server - not NATS on it's own...
+
+https://docs.nats.io/developing-with-nats-streaming/streaming
+
+Use official 'nats-streaming' docker image:
+
+https://hub.docker.com/_/nats-streaming
+
+look at 'nats-streaming' docker image commandsline options...
+
+start up skaffold dev:
+
+- deployment.apps/nats-depl created
+- service/nats-srv created
+
+kubectl get pods
+
+make sure nat-depl pod is running:
+
+nats-depl-7ddff778f9-kwh24 1/1 Running 0 2m
+
+---
+
+https://www.npmjs.com/package/node-nats-streaming
+
+callback based...
