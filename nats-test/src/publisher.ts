@@ -1,10 +1,13 @@
 import nats from "node-nats-streaming";
 
+console.clear();
+
 //after client (stan) connects to streaming server it will emit a connect event
 const stan = nats.connect("ticketing", "abc", {
   url: "http://localhost:4222",
 });
 
+//watch for connect event
 stan.on("connect", () => {
   console.log("Publisher connected to NATS");
 

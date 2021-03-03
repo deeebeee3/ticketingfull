@@ -445,3 +445,5 @@ npm run publish
 Publisher connected to NATS
 
 ---
+
+in terminal window where listen or publish scriptst running - can type rs to restart program...
