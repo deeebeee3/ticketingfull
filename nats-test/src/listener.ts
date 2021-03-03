@@ -12,9 +12,14 @@ const stan = nats.connect("ticketing", randomBytes(4).toString("hex"), {
 stan.on("connect", () => {
   console.log("Publisher connected to NATS");
 
+  //rather than pass in an object with options... with nats options
+  //are methods which are chained on
+  const options = stan.subscriptionOptions().setManualAckMode(true);
+
   const subscription = stan.subscribe(
     "ticket:created",
-    "whatever-service-queue-group"
+    "whatever-service-queue-group",
+    options
   );
 
   subscription.on("message", (msg: Message) => {
@@ -23,5 +28,8 @@ stan.on("connect", () => {
     if (typeof data === "string") {
       console.log(`Recieved event #${msg.getSequence()}, with data: ${data}`);
     }
+
+    //tell nats streaming server we recieved the message and it has been processed
+    msg.ack();
   });
 });
