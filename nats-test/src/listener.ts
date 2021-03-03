@@ -17,30 +17,7 @@ stan.on("connect", () => {
     process.exit();
   });
 
-  //rather than pass in an object with options... with nats options
-  //are methods which are chained on
-  const options = stan
-    .subscriptionOptions()
-    .setManualAckMode(true)
-    .setDeliverAllAvailable()
-    .setDurableName("whatever-service");
-
-  const subscription = stan.subscribe(
-    "ticket:created",
-    "whatever-service-queue-group",
-    options
-  );
-
-  subscription.on("message", (msg: Message) => {
-    const data = msg.getData();
-
-    if (typeof data === "string") {
-      console.log(`Recieved event #${msg.getSequence()}, with data: ${data}`);
-    }
-
-    //tell nats streaming server we recieved the message and it has been processed
-    msg.ack();
-  });
+  new TicketCreatedListener(stan).listen();
 });
 
 process.on("SIGINT", () => stan.close()); // interupt signals
@@ -89,5 +66,16 @@ abstract class Listener {
     return typeof data === "string"
       ? JSON.parse(data)
       : JSON.parse(data.toString("utf8")); //parse Buffer data
+  }
+}
+
+class TicketCreatedListener extends Listener {
+  subject = "ticket:created";
+  queueGroupName = "payments-service";
+
+  onMessage(data: any, msg: Message) {
+    console.log("Event data!", data);
+
+    msg.ack();
   }
 }
