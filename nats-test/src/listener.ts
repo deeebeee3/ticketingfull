@@ -10,7 +10,7 @@ const stan = nats.connect("ticketing", randomBytes(4).toString("hex"), {
 
 //watch for connect event
 stan.on("connect", () => {
-  console.log("Publisher connected to NATS");
+  console.log("Listener connected to NATS");
 
   stan.on("close", () => {
     console.log("NATS connection closed!");
@@ -19,7 +19,11 @@ stan.on("connect", () => {
 
   //rather than pass in an object with options... with nats options
   //are methods which are chained on
-  const options = stan.subscriptionOptions().setManualAckMode(true);
+  const options = stan
+    .subscriptionOptions()
+    .setManualAckMode(true)
+    .setDeliverAllAvailable()
+    .setDurableName("whatever-service");
 
   const subscription = stan.subscribe(
     "ticket:created",
