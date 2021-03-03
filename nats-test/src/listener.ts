@@ -12,6 +12,11 @@ const stan = nats.connect("ticketing", randomBytes(4).toString("hex"), {
 stan.on("connect", () => {
   console.log("Publisher connected to NATS");
 
+  stan.on("close", () => {
+    console.log("NATS connection closed!");
+    process.exit();
+  });
+
   //rather than pass in an object with options... with nats options
   //are methods which are chained on
   const options = stan.subscriptionOptions().setManualAckMode(true);
@@ -33,3 +38,6 @@ stan.on("connect", () => {
     msg.ack();
   });
 });
+
+process.on("SIGINT", () => stan.close()); // interupt signals
+process.on("SIGTERM", () => stan.close()); // terminate signals

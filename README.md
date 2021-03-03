@@ -456,3 +456,22 @@ vertical scaling - more CPU, RAM to the service
 horizontal scaling - created a second instance of a service
 
 ---
+
+## nats monitoring
+
+kubectl port-forward nats-depl-7ddff778f9-kwh24 8222:8222
+
+goto:
+
+localhost:8222/streaming
+
+in browser to see info about our nats streaming server...
+
+http://localhost:8222/streaming/clientsz
+http://localhost:8222/streaming/channelsz
+
+see all subscribtions to a channel:
+
+http://localhost:8222/streaming/channelsz?subs=1
+
+---
