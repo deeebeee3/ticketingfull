@@ -446,4 +446,13 @@ Publisher connected to NATS
 
 ---
 
-in terminal window where listen or publish scriptst running - can type rs to restart program...
+in terminal window where listen or publish scripts running - can type rs to restart program...
+
+---
+
+If in future we a service is geeting alot of traffic we can do either:
+
+vertical scaling - more CPU, RAM to the service
+horizontal scaling - created a second instance of a service
+
+---

@@ -1,9 +1,10 @@
 import nats, { Message } from "node-nats-streaming";
+import { randomBytes } from "crypto";
 
 console.clear();
 
 //after client (stan) connects to streaming server it will emit a connect event
-const stan = nats.connect("ticketing", "123", {
+const stan = nats.connect("ticketing", randomBytes(4).toString("hex"), {
   url: "http://localhost:4222",
 });
 
