@@ -410,3 +410,38 @@ tsc --init
 npm install -g typescript
 
 The ts-node-dev library recently released a change that disables this restart behavior by default. To enable it, add --rs to scripts in package.json
+
+---
+
+## Port forwarding (just for use during dev, to quickly temporarily access something)
+
+Port Forwarding - for standalone NATS project - to get access to Pod running nats streaming server...
+
+kubectl get pods
+
+NAME READY STATUS RESTARTS AGE
+auth-depl-6f75d854d5-r6p5w 1/1 Running 0 34m
+auth-mongo-depl-54f54b8589-b9hf2 1/1 Running 0 34m
+client-depl-6554588ccd-vsfxb 1/1 Running 0 34m
+nats-depl-7ddff778f9-kwh24 1/1 Running 0 34m
+tickets-depl-679f8d45c9-jtr4x 1/1 Running 0 34m
+tickets-mongo-depl-76769f4565-8f95w 1/1 Running 0 34m
+
+kubectl port-forward nats-depl-7ddff778f9-kwh24 4222:4222
+
+4222:4222
+
+- port on local machine that we want to use to get access to the pod
+- port on the pod that we are trying to access
+
+Forwarding from 127.0.0.1:4222 -> 4222
+Forwarding from [::1]:4222 -> 4222
+
+then in another terminal window run
+
+npm run publish
+
+[INFO] 10:20:50 ts-node-dev ver. 1.1.6 (using ts-node ver. 9.1.1, typescript ver. 4.2.2)
+Publisher connected to NATS
+
+---
