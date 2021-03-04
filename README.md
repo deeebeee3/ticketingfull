@@ -475,3 +475,17 @@ see all subscribtions to a channel:
 http://localhost:8222/streaming/channelsz?subs=1
 
 ---
+
+npm update @ddbtickets/common
+
+---
+
+Restarting NATS to get rid of old temp data...
+
+while skaffold running in another terminal do:
+
+kubectl delete pod nats-depl-7ddff778f9-kwh24
+
+clean pod will then be automatically recreated again...
+
+---
