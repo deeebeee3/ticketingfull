@@ -484,6 +484,8 @@ Restarting NATS to get rid of old temp data...
 
 while skaffold running in another terminal do:
 
+kubectl get pods
+
 kubectl delete pod nats-depl-7ddff778f9-kwh24
 
 clean pod will then be automatically recreated again...
