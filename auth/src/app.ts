@@ -7,7 +7,7 @@ import { currentUserRouter } from "./routes/current-user";
 import { signInRouter } from "./routes/signin";
 import { signOutRouter } from "./routes/signout";
 import { signUpRouter } from "./routes/signup";
-import { errorHandler, NotFoundError } from "@dbtickets/common";
+import { errorHandler, NotFoundError } from "@ddbtickets/common";
 
 const app = express();
 app.set("trust proxy", true); //trust traffic coming from our ingress-nginx proxy

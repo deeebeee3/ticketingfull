@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 import { Password } from "../utils/password";
 import { User } from "../models/user";
-import { validateRequest, BadRequestError } from "@dbtickets/common";
+import { validateRequest, BadRequestError } from "@ddbtickets/common";
 
 const router = express.Router();
 
