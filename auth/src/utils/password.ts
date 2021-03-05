@@ -1,10 +1,11 @@
+import bcrypt from "bcrypt";
 import { scrypt, randomBytes } from "crypto";
 import { promisify } from "util";
 
 //convert scrypt from callback based implementation to promise based implementation
 const scryptAsync = promisify(scrypt);
 
-export class Password {
+export class PasswordOld {
   static async toHash(password: string) {
     const salt = randomBytes(8).toString("hex");
 
@@ -25,5 +26,15 @@ export class Password {
 
     //compare the two
     return buffer.toString("hex") === hashedPassword;
+  }
+}
+
+export class Password {
+  static async toHash(password: string) {
+    return bcrypt.hash(password, 8);
+  }
+
+  static async compare(storedPassword: string, suppliedPassword: string) {
+    return bcrypt.compare(suppliedPassword, storedPassword);
   }
 }
