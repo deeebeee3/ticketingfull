@@ -5,7 +5,7 @@ import {
   NotFoundError,
   requireAuth,
   NotAuthorizedError,
-} from "@dbtickets/common";
+} from "@ddbtickets/common";
 import { Ticket } from "../models/ticket";
 
 const router = express.Router();
