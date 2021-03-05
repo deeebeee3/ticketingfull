@@ -1,9 +1,15 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
-import { requireAuth, validateRequest } from "@ddbtickets/common";
+import {
+  requireAuth,
+  validateRequest,
+  DatabaseConnectionError,
+} from "@ddbtickets/common";
 import { Ticket } from "../models/ticket";
 import { TicketCreatedPublisher } from "../events/publishers/ticket-created-publisher";
 import { natsWrapper } from "../nats-wrapper";
+
+import mongoose from "mongoose";
 
 const router = express.Router();
 
@@ -26,16 +32,32 @@ router.post(
       userId: req.currentUser!.id,
     });
 
-    await ticket.save();
+    // Start a new Session and Transaction
+    const SESSION = await mongoose.startSession();
+    SESSION.startTransaction();
 
-    new TicketCreatedPublisher(natsWrapper.client).publish({
-      id: ticket.id,
-      title: ticket.title,
-      price: ticket.price,
-      userId: ticket.userId,
-    });
+    try {
+      await ticket.save();
 
-    res.status(201).send(ticket);
+      await new TicketCreatedPublisher(natsWrapper.client).publish({
+        id: ticket.id,
+        title: ticket.title,
+        price: ticket.price,
+        userId: ticket.userId,
+      });
+
+      //Only commit transaction if TicketCreatedPublisher event successfully published
+      await SESSION.commitTransaction();
+
+      res.status(201).send(ticket);
+    } catch (err) {
+      // Catch any transaction error
+      await SESSION.abortTransaction();
+      throw new DatabaseConnectionError();
+    } finally {
+      // Finally end the Session
+      SESSION.endSession();
+    }
   }
 );
 
