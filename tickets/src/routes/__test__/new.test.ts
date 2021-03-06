@@ -2,6 +2,9 @@ import request from "supertest";
 import { app } from "../../app";
 import { Ticket } from "../../models/ticket";
 
+//jest will redirect this import to use the fake / mock natsWrapper
+import { natsWrapper } from "../../nats-wrapper";
+
 //anywhere we try to use the real nats wrapper jest will see this
 //and instead use the fake (mock) nats wrapper...
 //mock was added in /test/setup.ts instead - so applies to all tests in __test__
@@ -83,4 +86,21 @@ it("creates a ticket with valid inputs", async () => {
   expect(tickets.length).toEqual(1);
   expect(tickets[0].price).toEqual(20);
   expect(tickets[0].title).toEqual("Valid Title and Price");
+});
+
+it("publishes an event", async () => {
+  const title = "iejnciencienc";
+
+  await request(app)
+    .post("/api/tickets")
+    .set("Cookie", global.createFakeCookie())
+    .send({
+      title,
+      price: 20,
+    })
+    .expect(201);
+
+  //console.log(natsWrapper);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });

@@ -2,6 +2,9 @@ import request from "supertest";
 import { app } from "../../app";
 import mongoose from "mongoose";
 
+//jest will redirect this import to use the fake / mock natsWrapper
+import { natsWrapper } from "../../nats-wrapper";
+
 it("returns a 404 if the provided id does not exist", async () => {
   const id = mongoose.Types.ObjectId().toHexString();
   await request(app)
@@ -100,4 +103,27 @@ it("updates the ticket if provided valid inputs", async () => {
 
   expect(ticketResponse.body.title).toEqual("Valid Title and Price");
   expect(ticketResponse.body.price).toEqual(17);
+});
+
+it("publishes an event", async () => {
+  const cookie = global.createFakeCookie();
+
+  const response = await request(app)
+    .post(`/api/tickets`)
+    .set("Cookie", cookie)
+    .send({
+      title: "ffwiufiw",
+      price: 20,
+    });
+
+  await request(app)
+    .put(`/api/tickets/${response.body.id}`)
+    .set("Cookie", cookie)
+    .send({
+      title: "Valid Title and Price",
+      price: 17,
+    })
+    .expect(200);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
