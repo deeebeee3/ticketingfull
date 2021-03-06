@@ -13,6 +13,10 @@ declare global {
   }
 }
 
+//anywhere we try to use the real nats wrapper jest will see this
+//and instead use the fake (mock) nats wrapper...
+jest.mock("../nats-wrapper");
+
 let mongo: any;
 
 //run beforeAll Hook before all tests

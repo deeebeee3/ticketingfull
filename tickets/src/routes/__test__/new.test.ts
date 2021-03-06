@@ -2,6 +2,11 @@ import request from "supertest";
 import { app } from "../../app";
 import { Ticket } from "../../models/ticket";
 
+//anywhere we try to use the real nats wrapper jest will see this
+//and instead use the fake (mock) nats wrapper...
+//mock was added in /test/setup.ts instead - so applies to all tests in __test__
+//jest.mock("../../nats-wrapper");
+
 it("has a route handler listening to /api/tickets for post requests", async () => {
   const response = await request(app).post("/api/tickets").send({});
 
