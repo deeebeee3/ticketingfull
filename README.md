@@ -505,3 +505,5 @@ deepakbhari@MacBook-Pro-2 orders % docker build -t deepakbhari/orders .
 4 Create Kubernetes deployment files for orders-depl and orders-mongo-depl
 
 5 Setup the file sync options in the skaffold.yaml file
+
+6 Set up routing rules in the ingress service
