@@ -491,3 +491,13 @@ kubectl delete pod nats-depl-7ddff778f9-kwh24
 clean pod will then be automatically recreated again...
 
 ---
+
+# Start Building the Orders Service
+
+1 Duplicate the tickets service - copy over some file
+
+2 Install dependencies
+
+3 Build an image out of the orders service...
+
+deepakbhari@MacBook-Pro-2 orders % docker build -t deepakbhari/orders .
