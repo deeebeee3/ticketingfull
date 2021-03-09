@@ -507,3 +507,18 @@ deepakbhari@MacBook-Pro-2 orders % docker build -t deepakbhari/orders .
 5 Setup the file sync options in the skaffold.yaml file
 
 6 Set up routing rules in the ingress service
+
+---
+
+Add Order Status Enum and publish it
+
+deepakbhari@MacBook-Pro-2 ticketingfull % cd common
+deepakbhari@MacBook-Pro-2 common % npm run pub
+
+deepakbhari@MacBook-Pro-2 common % cd ..
+deepakbhari@MacBook-Pro-2 ticketingfull % cd orders
+
+npm update @ddbtickets/common
+
+check in orders/package.lock file to make sure version number updated
+to same on npmjs...
