@@ -524,3 +524,87 @@ check in orders/package.lock file to make sure version number updated
 to same on npmjs...
 
 ---
+
+# SIDESTEP - SWITCH TO GOOGLE CLOUD AND REMOVE DOCKER DESKTOP FOR NOW...
+
+Quick sidestep - switching over to leverag Google Cloud instead of local Docker / Kubernetes environment...
+
+Setup google cloud account
+
+install sdk
+
+create a new cluster in UI
+
+Enable Google Cloud Build from UI
+
+Uninstall Docker for Desktop if no longer required - or make sure to switch context to use Google Cloud
+from the Docker desktop UI...
+
+Update skaffold.yaml to use Google Cloud Build
+
+Update the deployment files to point to images on google cloud...
+
+---
+
+Install ingress-nginx on our google cloud cluster
+
+https://kubernetes.github.io/ingress-nginx/deploy/#gce-gke
+
+Run in local terminal:
+
+
+kubectl create clusterrolebinding cluster-admin-binding \
+  --clusterrole cluster-admin \
+  --user $(gcloud config get-value account)
+
+
+then:
+
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.44.0/deploy/static/provider/cloud/deploy.yaml
+
+---
+
+kubectl create secret generic jwt-secret --from-literal=JWT_KEY=asdf
+
+---
+
+Update our local hosts file again to point to the remote cluster...
+
+When we ran the install ingress-nginx command above - it created:
+
+1) Our ingress-nginx controller inside our cluster with the routing rules tied to it
+
+2) A load balancer in GC but outside of our cluster (but pointing to our cluster)
+
+So when we want to connect to our cluster - we really want to connect to the load balancer
+
+
+Get the load balancer IP address from google cloud and stick it into hosts file....
+
+
+> code /etc/hosts
+
+add / update:
+
+35.240.106.190 ticketing.dev
+
+---
+
+Restart Skaffold:
+
+gcloud auth application-default login
+
+skaffold dev
+
+
+---
+
+Might get error message - unable to connect to nats client from orders and / or ticketing service...
+
+Try ctrl + c and restart skaffold a few times unitil error disappears...
+
+Will fix later :-), handle async connect...
+
+
+# LISTENING FOR EVENTS AND HANDLING CONCURRENCY ISSUES
