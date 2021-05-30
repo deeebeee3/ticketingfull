@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: tickets
-          image: us.gcr.io/ticketing-dev-308110/tickets
+          # image: us.gcr.io/ticketing-dev-308110/tickets
+          image: deepakbhari/tickets
           env:
             - name: NATS_CLUSTER_ID
               value: ticketing
